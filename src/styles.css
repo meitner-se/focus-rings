@@ -7,6 +7,6 @@
   background: none;
   margin: 0;
   padding: 0;
-  border-radius: var(--__adaptive-focus-ring-radius, 4px);
+  border-radius: var(--__adaptive-focus-ring-radius, var(--border-radius, 4px));
   box-shadow: 0 0 0 4px var(--__adaptive-focus-ring-color, var(--focus-primary, #00b0f4));
 }
