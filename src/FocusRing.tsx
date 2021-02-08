@@ -26,6 +26,7 @@ export default function FocusRing(props: FocusRingComponentProps) {
   const {
     within = false,
     enabled = true,
+    visible = true,
     focused,
     offset = 0,
     focusTarget,
@@ -70,6 +71,14 @@ export default function FocusRing(props: FocusRingComponentProps) {
     if (!enabled) return;
     ringContext.invalidate();
   });
+
+  const hasFocusVisible = (event: React.FocusEvent<Element>) => {
+    return event?.currentTarget?.hasAttribute("data-focus-visible-added");
+  };
+
+  const hasFocusVisibleWithin = (event: React.FocusEvent<Element>) => {
+    return !!event?.currentTarget?.querySelector("[data-focus-visible-added]");
+  };
 
   // If this ring was active, hide it when this component unmounts.
   React.useEffect(() => {
@@ -141,16 +150,21 @@ export default function FocusRing(props: FocusRingComponentProps) {
   const onFocus = React.useCallback(
     (event: React.FocusEvent<Element>) => {
       const container = ringTarget?.current;
-
       if (event.currentTarget === event.target) {
-        focusedRef.current = true;
-        ringContext.showElement(container ?? event.currentTarget, ringOptions);
+        const focusVisible = hasFocusVisible(event);
+        if (focusVisible || !visible) {
+          focusedRef.current = true;
+          ringContext.showElement(container ?? event.currentTarget, ringOptions);
+        }
       } else {
-        setFocusWithin(true);
-        if (within) ringContext.showElement(container ?? event.currentTarget, ringOptions);
+        const focusVisible = hasFocusVisibleWithin(event);
+        if (focusVisible || !visible) {
+          setFocusWithin(true);
+          if (within) ringContext.showElement(container ?? event.currentTarget, ringOptions);
+        }
       }
-
       childOnFocus?.(event);
+      // focusVisible?.onFocus();
     },
     [ringTarget, within, childOnFocus, ringContext, ringOptions],
   );

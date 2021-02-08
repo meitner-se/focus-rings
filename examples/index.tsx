@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import { FocusRing, FocusRingScope } from "../src";
 import "../src/styles.css";
 
+import "focus-visible";
+
 function Button() {
   return (
     <FocusRing offset={-2}>
@@ -56,7 +58,13 @@ function App() {
             Here's another paragraph with more text. This one has an{" "}
             <Anchor>anchor tag inside it</Anchor> that you can also focus.
           </p>
-
+          <FocusRing within>
+            <div style={{ padding: 20 }}>
+              <p>Focus within</p>
+              <Button />
+              <Anchor>Hello friends</Anchor>
+            </div>
+          </FocusRing>
           <p>
             This is an example of a scrolling container that uses a nested{" "}
             <code>FocusRingScope</code> to ensure that rings are always rendered in the right

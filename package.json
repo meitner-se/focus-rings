@@ -58,6 +58,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "invariant": "^2.2.4",
-    "shallowequal": "^1.1.0"
+    "shallowequal": "^1.1.0",
+    "focus-visible": "^5.2.0"
   }
 }

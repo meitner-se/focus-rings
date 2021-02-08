@@ -18,6 +18,7 @@ export type FocusRingAncestry = {
 
 export interface FocusRingProps {
   within?: boolean;
+  visible?: boolean;
   enabled?: boolean;
   focused?: boolean;
   offset?: Offset | number;
